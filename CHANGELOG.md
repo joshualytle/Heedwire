@@ -13,6 +13,9 @@ Every user-facing change must update the `[Unreleased]` section in the same PR.
 - Starter vendor PSIRT advisory RSS feeds wired into the taxonomy for Fortinet,
   Cisco, and Palo Alto; selecting those vendors (or the Firewalls category)
   auto-adds their advisory feed as an `rss` source.
+- Teams delivery via Power Automate **Workflows** (`format: teams_workflow`):
+  posts an Adaptive Card to the Workflows webhook that replaces the retired
+  Office 365 connector. The legacy `teams` MessageCard format is retained.
 
 ### Changed
 - RSS source now fetches through the shared HTTP session (explicit timeout +

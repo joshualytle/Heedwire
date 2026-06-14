@@ -30,7 +30,12 @@ outputs:
   webhook:
     type: webhook
     url_env: HEEDWIRE_WEBHOOK_URL
-    format: slack             # slack | teams | discord | text
+    format: slack             # slack | teams_workflow | teams | discord | text
+    # Teams: O365 connectors were retired in 2026. Create a Power Automate
+    # "Workflows" webhook on the channel ("Post to a channel when a webhook
+    # request is received"), put its URL in HEEDWIRE_WEBHOOK_URL, and use
+    # format: teams_workflow (Adaptive Card). `teams` (legacy MessageCard) is
+    # still accepted by Workflows but teams_workflow is preferred.
   # stdout: { type: stdout }   # for --once / debugging
 
 # --- Engine ---
