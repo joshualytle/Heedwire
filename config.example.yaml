@@ -1,0 +1,46 @@
+# Heedwire config. Copy to config.yaml and edit. Secrets come from env, never here.
+
+# --- Sources: broad public feeds, filtered locally. ---
+sources:
+  kev:
+    type: kev
+  # Add advisory/news RSS feeds (vendor PSIRTs, BleepingComputer, etc.):
+  # "rss:msrc":
+  #   type: rss
+  #   url: https://msrc.microsoft.com/update-guide/rss
+  # Picking a vendor below also auto-adds its taxonomy advisory_feed, if defined.
+
+# --- What you watch: pick from the taxonomy, no keyword guessing. ---
+watch:
+  categories: ["Network Security / Firewalls", "Remote Access / VPN", "RMM / PSA"]
+  vendors: [Microsoft, Fortinet, Ivanti]
+  products: [vmware.esxi]
+  custom: []        # ad-hoc entries so you're never blocked on the taxonomy
+
+# --- Gates: applied after a watchlist match (KEV always passes). ---
+gates:
+  min_severity: high          # unknown|low|medium|high|critical
+  only_known_exploited: false
+  # epss_min: 0.5
+
+# --- Outputs: secrets from env. ---
+outputs:
+  webhook:
+    type: webhook
+    url_env: HEEDWIRE_WEBHOOK_URL
+    format: slack             # slack | teams | discord | text
+  # stdout: { type: stdout }   # for --once / debugging
+
+# --- Engine ---
+lookback_hours: 25
+interval_minutes: 1440        # run mode: once a day
+store_path: data/heedwire.db
+taxonomy_path: data/taxonomy.yaml
+api_host: 127.0.0.1
+api_port: 8787
+
+# --- AI summaries: OFF by default; grounded + source-linked when enabled. ---
+summarizer:
+  enabled: false
+  # model: ollama
+  # endpoint: http://localhost:11434

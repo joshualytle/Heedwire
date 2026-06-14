@@ -1,0 +1,14 @@
+Heedwire
+Copyright (c) 2025 the Heedwire authors
+
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+THIS SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. Heedwire does not
+guarantee detection or delivery of any alert; missed, delayed, duplicate, or
+inaccurate alerts are possible. Do not rely on it as your sole source of security
+information. See DISCLAIMER.md.
+
+Third-party data (consult each provider's terms):
+  - CISA Known Exploited Vulnerabilities catalog (U.S. Government, public domain)
+  - NVD (U.S. Government, public domain)
+  - Vendor PSIRT / news RSS feeds and Reddit (each under its own terms)

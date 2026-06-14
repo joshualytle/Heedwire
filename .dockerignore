@@ -1,0 +1,11 @@
+.git
+.github
+config.yaml
+data/*.db
+.env
+tests
+docs
+*.md
+.venv
+__pycache__
+*.egg-info
