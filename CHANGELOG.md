@@ -45,6 +45,12 @@ Every user-facing change must update the `[Unreleased]` section in the same PR.
   retry/backoff) instead of feedparser's un-timed fetch.
 
 ### Fixed
+- Docker build failed because `.dockerignore`'s `*.md` excluded `README.md`,
+  which the Dockerfile copies (pip needs it — `pyproject.toml` sets
+  `readme = "README.md"`). Re-include it with `!README.md`.
+- CI `gitleaks` job failed: gitleaks-action v2 requires a `GITHUB_TOKEN` to scan
+  pull requests. Pass the token and check out full history so it can diff the
+  PR range.
 - KEV source now strips stray whitespace from the free-text `vendorProject` and
   `product` fields (present in the live CISA catalog), so exact structured
   matching is not silently defeated.
