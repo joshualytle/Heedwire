@@ -14,6 +14,7 @@ from pathlib import Path
 
 from heedwire.config import Gates, Watch
 from heedwire.matching import evaluate
+from heedwire.models import Severity
 from heedwire.sources.rss import RssSource
 from heedwire.taxonomy import load_taxonomy, resolve
 
@@ -47,3 +48,15 @@ def test_advisory_item_matches_via_alias():
     assert f.matched_on == "pan-os"
     assert "PAN-OS" in f.item.title
     assert f.item.source == "rss:psirt-0"      # _id tags which feed fired
+
+
+def test_advisory_severity_is_parsed_and_gated():
+    """The feed states "(Severity: MEDIUM)" — it is read off the item (not left
+    UNKNOWN) and then gated normally: it passes a medium floor, fails a high one."""
+    rw = _resolved_panos()
+    panos = next(it for it in RssSource(
+        url=str(FIXTURES / "paloalto_psirt_rss.xml"), _id="rss:psirt-0").fetch(LONG_AGO)
+        if "PAN-OS" in it.title)
+    assert panos.severity is Severity.MEDIUM
+    assert evaluate(rw, Gates(min_severity=Severity.MEDIUM), panos) is not None
+    assert evaluate(rw, Gates(min_severity=Severity.HIGH), panos) is None

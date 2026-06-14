@@ -102,6 +102,13 @@ outputs:
     format: slack            # slack | teams_workflow | teams | discord | text
 ```
 
+`min_severity` is checked against the severity each source reports: CISA KEV is
+always critical (and KEV-listed items bypass the floor), and advisory/PSIRT feeds
+carry the **vendor-stated** severity Heedwire reads from the item (an explicit
+`Severity:`, a Cisco `Security Impact Rating`, or a CVSS base score). An advisory
+whose feed states no severity is `unknown` and won't clear a `high` floor — lower
+`min_severity` if you want those too.
+
 Picking a vendor/category that has a PSIRT feed auto-adds that feed (the starter
 taxonomy ships Fortinet, Cisco, and Palo Alto). Custom entries are supported, so
 you're never blocked waiting on the taxonomy — see [`docs/taxonomy.md`](docs/taxonomy.md).

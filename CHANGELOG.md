@@ -9,6 +9,13 @@ Every user-facing change must update the `[Unreleased]` section in the same PR.
 ## [Unreleased]
 
 ### Added
+- Advisory severity parsing: RSS/PSIRT items now carry the **vendor-stated**
+  severity when the feed publishes one — an explicit `Severity:`, Cisco's
+  `Security Impact Rating`, or a CVSS base score mapped to its qualitative band
+  (`heedwire.severity.parse_severity`). This is read, never invented; items whose
+  feed states nothing stay `unknown`. Fixes advisory feeds being silently dropped
+  by the `min_severity` gate (e.g. high/critical PSIRT advisories now deliver
+  under the shipped `min_severity: high`).
 - `.env.example` template for the secrets Heedwire reads from the environment
   (`HEEDWIRE_WEBHOOK_URL`, optional `HEEDWIRE_HEARTBEAT_URL`). Copy it to `.env`
   and fill in; `docker compose` loads it automatically. Keeps secret
