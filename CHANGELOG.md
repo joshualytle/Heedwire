@@ -10,11 +10,20 @@ Every user-facing change must update the `[Unreleased]` section in the same PR.
 
 ### Added
 - Initial project scaffolding, repository documentation, and engineering ruleset.
+- Starter vendor PSIRT advisory RSS feeds wired into the taxonomy for Fortinet,
+  Cisco, and Palo Alto; selecting those vendors (or the Firewalls category)
+  auto-adds their advisory feed as an `rss` source.
+
+### Changed
+- RSS source now fetches through the shared HTTP session (explicit timeout +
+  retry/backoff) instead of feedparser's un-timed fetch.
 
 ### Fixed
 - KEV source now strips stray whitespace from the free-text `vendorProject` and
   `product` fields (present in the live CISA catalog), so exact structured
   matching is not silently defeated.
+- RSS source parsed feed timestamps as local time, shifting `published` times
+  (and the window filter) on non-UTC hosts; they are now correctly read as UTC.
 
 <!--
 Group entries under: Added / Changed / Deprecated / Removed / Fixed / Security.

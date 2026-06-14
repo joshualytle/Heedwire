@@ -4,11 +4,13 @@
 sources:
   kev:
     type: kev
-  # Add advisory/news RSS feeds (vendor PSIRTs, BleepingComputer, etc.):
-  # "rss:msrc":
+  # Picking a vendor/product/category below auto-adds its taxonomy advisory_feed
+  # as an rss source. The starter taxonomy ships PSIRT feeds for Fortinet, Cisco,
+  # and Palo Alto, so the firewall picks below already pull those advisories.
+  # Add your own advisory/news RSS feeds here (give each a unique key):
+  # "rss:bleepingcomputer":
   #   type: rss
-  #   url: https://msrc.microsoft.com/update-guide/rss
-  # Picking a vendor below also auto-adds its taxonomy advisory_feed, if defined.
+  #   url: https://www.bleepingcomputer.com/feed/
 
 # --- What you watch: pick from the taxonomy, no keyword guessing. ---
 watch:
