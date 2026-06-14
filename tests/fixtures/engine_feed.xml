@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Engine integration test feed</title>
+    <link>https://example.test/feed</link>
+    <item>
+      <title>VMware ESXi Out-of-Bounds Write (Severity: High)</title>
+      <link>https://example.test/esxi-1</link>
+      <guid isPermaLink="false">engine-esxi-1</guid>
+      <pubDate>Fri, 13 Jun 2026 10:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Unrelated product release notes</title>
+      <link>https://example.test/other-1</link>
+      <guid isPermaLink="false">engine-other-1</guid>
+      <pubDate>Fri, 13 Jun 2026 10:00:00 +0000</pubDate>
+    </item>
+  </channel>
+</rss>
