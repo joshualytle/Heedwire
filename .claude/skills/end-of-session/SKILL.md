@@ -42,7 +42,6 @@ real `config.yaml`, or the watchlist) into the summary, a file, or a commit.
    next session should take (in order), and **what's needed from the maintainer**
    to unblock. No secrets — refer to env var *names* only.
 
-6. **Output to chat by default.** Offer to also save the handoff to a tracked file
-   (e.g. `docs/handoffs/YYYY-MM-DD.md`) if the maintainer wants a durable log;
-   only do so on request. Never commit secrets.
+6. **Output to chat only.** Do not write the handoff to a file or commit it —
+   it lives in the conversation for the maintainer to copy. Never echo secrets.
 </content>
