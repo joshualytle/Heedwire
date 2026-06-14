@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type="text/css" href="/css/rss.css" ?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>Palo Alto Networks Security Advisories</title>
+    <description> </description>
+    <link>https://security.paloaltonetworks.com/rss.xml</link>
+    <atom:link href="https://security.paloaltonetworks.com/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>CVE-2026-0249 GlobalProtect App: Certificate Validation Bypass Vulnerabilities (Severity: MEDIUM)</title>
+      <pubDate>2026-06-13T01:45:00.000Z</pubDate>
+      <link>https://security.paloaltonetworks.com/CVE-2026-0249</link>
+      <guid isPermaLink="true">https://security.paloaltonetworks.com/CVE-2026-0249</guid>
+    </item>
+    <item>
+      <title>CVE-2026-0250 GlobalProtect App: Buffer Overflow Vulnerability during connection to Portal or Gateway (Severity: MEDIUM)</title>
+      <pubDate>2026-06-13T01:30:00.000Z</pubDate>
+      <link>https://security.paloaltonetworks.com/CVE-2026-0250</link>
+      <guid isPermaLink="true">https://security.paloaltonetworks.com/CVE-2026-0250</guid>
+    </item>
+    <item>
+      <title>CVE-2026-0273 PAN-OS: Authenticated Admin Command Injection Vulnerability via CLI or Web UI (Severity: MEDIUM)</title>
+      <pubDate>2026-06-11T01:00:00.000Z</pubDate>
+      <link>https://security.paloaltonetworks.com/CVE-2026-0273</link>
+      <guid isPermaLink="true">https://security.paloaltonetworks.com/CVE-2026-0273</guid>
+    </item>
+  </channel>
+</rss>
