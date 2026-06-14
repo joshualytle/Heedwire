@@ -1,0 +1,139 @@
+# Heedwire
+
+**A simple, self-hostable security signal monitor for your stack.** Pick the
+vendors and product categories you care about; Heedwire watches public advisory
+feeds, filters to your selections, and pushes what matters to Teams, Slack, or
+Discord. One container. Free. Honest about its limits.
+
+Today it watches **CISA KEV** and **vendor PSIRT advisory feeds**. Security-news
+and Reddit/forum chatter, more sources, and optional AI summaries are on the
+[roadmap](#roadmap) — the seams exist, the features are being built in the open.
+
+> ⚠️ **Early / work in progress.** See [`DISCLAIMER.md`](DISCLAIMER.md): Heedwire
+> is provided **AS IS** with **no guarantee** it catches or delivers every
+> relevant item. Missed, delayed, and inaccurate alerts are possible. It's an
+> aid, not your only source of security information. Apache-2.0 ([`LICENSE`](LICENSE)).
+
+## Why it exists
+
+Structured CVE monitors (e.g. OpenCVE) already do advisory databases well, and
+they're great. Heedwire's angle is different and complementary:
+
+- **Pick, don't write rules.** Choose from a curated taxonomy of **categories,
+  vendors, and products** instead of hand-writing brittle keyword rules.
+- **Radically simple to run.** One container, no database to stand up, alerting
+  in minutes.
+- **The chatter signal** *(roadmap).* The "is this month's patch safe to deploy /
+  is Patch Tuesday breaking domain controllers" question lives in security news
+  and r/sysadmin and r/msp — not in any CVE database. Heedwire is built to watch
+  that too.
+- **Responsible AI summaries** *(roadmap).* Grounded, source-linked,
+  security-aware — never inventing a severity, never republishing article text.
+
+## What it does / does not do
+
+**Today (v1):**
+- Pulls **CISA KEV** + configured **vendor PSIRT / advisory RSS** feeds.
+- Filters to your chosen vendors / categories / products via the taxonomy, with
+  severity and KEV gating.
+- Posts **new, deduped** findings to **one webhook** (Slack / Microsoft Teams /
+  Discord).
+- Exposes a read-only local API (`/healthz`, `/findings`, `/sources`).
+- Pings a heartbeat each run and survives a dead source.
+
+**Does not:** scan your assets, guarantee completeness or timeliness, verify news
+or forum claims, or replace official vendor advisories and your own process.
+
+## Quickstart
+
+With Docker:
+
+```bash
+git clone https://github.com/joshualytle/Heedwire
+cd Heedwire
+cp config.example.yaml config.yaml          # pick your vendors/categories
+export HEEDWIRE_WEBHOOK_URL=...              # Slack/Teams/Discord incoming webhook
+docker compose up -d
+```
+
+Without Docker (Python 3.12):
+
+```bash
+pip install -e .
+cp config.example.yaml config.yaml
+export HEEDWIRE_WEBHOOK_URL=...
+heedwire resolve -c config.yaml             # see what your picks resolve to
+heedwire once -c config.yaml                # one run now (omit to schedule)
+```
+
+See [`docs/deployment.md`](docs/deployment.md) for secrets, the outbound network
+allowlist, the heartbeat, Teams setup, and persistence.
+
+## Commands
+
+| Command | Does |
+|---|---|
+| `heedwire once -c config.yaml` | One run: ingest → match → deliver. `--no-deliver` to dry-run. |
+| `heedwire run -c config.yaml` | Long-running scheduler (the container default). |
+| `heedwire serve -c config.yaml` | Read-only local API (binds `127.0.0.1`). |
+| `heedwire resolve -c config.yaml` | Print the resolved matchers/feeds for your watch. |
+
+## Configuring what you watch
+
+You select from the shipped taxonomy — no keyword guessing:
+
+```yaml
+watch:
+  categories: ["Network Security / Firewalls", "Remote Access / VPN"]
+  vendors: [Microsoft, Fortinet, Ivanti]
+  products: [fortinet.fortios, microsoft.windows_server]
+
+gates:
+  min_severity: high        # KEV-listed items always pass
+  only_known_exploited: false
+
+outputs:
+  webhook:
+    url_env: HEEDWIRE_WEBHOOK_URL
+    format: slack            # slack | teams_workflow | teams | discord | text
+```
+
+Picking a vendor/category that has a PSIRT feed auto-adds that feed (the starter
+taxonomy ships Fortinet, Cisco, and Palo Alto). Custom entries are supported, so
+you're never blocked waiting on the taxonomy — see [`docs/taxonomy.md`](docs/taxonomy.md).
+
+## Sources
+
+| Source | Status |
+|---|---|
+| CISA KEV | shipped |
+| Vendor PSIRT / advisory RSS | shipped (Fortinet, Cisco, Palo Alto seeded) |
+| Ubuntu USN · NVD · security news · Reddit | roadmap |
+
+Heedwire **pulls broad public feeds and filters locally** — your watchlist is
+never sent to any provider. CISA KEV and NVD are U.S. Government public-domain
+data; vendor PSIRT and configured RSS carry their own terms. There is **no search
+scraping**: the Bing Search API was retired in 2025 and Google has no free
+general search API, so news discovery (when added) runs on RSS and optional
+free-tier providers.
+
+## AI summaries (optional, roadmap)
+
+A gated seam, **off by default** — the tool runs fully without any model. When
+wired up, summaries will be generated by a local model (Ollama/LiteRT) or any
+OpenAI-compatible/BYO endpoint, and are always **grounded** (summarize only the
+linked source), **source-linked**, and **non-authoritative**.
+
+## Roadmap
+
+The v1 spine (KEV + advisory RSS → filter → webhook → API) ships first. Then, as
+separate changes: the AI summarizer, more sources (USN, NVD, security news,
+Reddit), Microsoft Teams delivery via a Graph enterprise app, and a localhost
+web UI over the API.
+
+## License
+
+Apache-2.0. See [`LICENSE`](LICENSE), [`NOTICE`](NOTICE), and
+[`DISCLAIMER.md`](DISCLAIMER.md). Contributions welcome — see
+[`CONTRIBUTING.md`](CONTRIBUTING.md).
+</content>

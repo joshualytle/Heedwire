@@ -1,0 +1,97 @@
+# Heedwire taxonomy — starter seed.
+# Pick from these by category / vendor / product in config.yaml (watch:).
+# Each entry maps one product to the keys each source type needs.
+#
+# NOTE: cpe vendor/product slugs are seeds — verify against the NVD CPE
+# dictionary when expanding. alias_safety: exact | phrase | cooccur.
+# `advisory_feed` is the vendor's published PSIRT RSS endpoint; picking that
+# vendor/product/category auto-adds it as an rss source. These feeds may sit
+# behind a CDN/WAF that rate-limits or blocks automated clients on some
+# networks; a failing feed surfaces as a per-source error (the run continues)
+# and can be overridden or disabled in your config.
+# Contributions welcome (see CONTRIBUTING.md).
+
+# ---------------- Network Security / Firewalls ----------------
+- id: fortinet.fortios
+  vendor: Fortinet
+  category: Network Security / Firewalls
+  cpe: { vendor: fortinet, product: fortios }
+  aliases: ["FortiOS", "FortiGate"]
+  alias_safety: exact
+  advisory_feed: https://www.fortiguard.com/rss/ir.xml   # FortiGuard PSIRT RSS
+
+- id: paloalto.panos
+  vendor: Palo Alto Networks
+  category: Network Security / Firewalls
+  cpe: { vendor: paloaltonetworks, product: pan-os }
+  aliases: ["PAN-OS", "Palo Alto"]
+  alias_safety: phrase
+  advisory_feed: https://security.paloaltonetworks.com/rss.xml
+
+- id: sonicwall.sonicos
+  vendor: SonicWall
+  category: Network Security / Firewalls
+  cpe: { vendor: sonicwall, product: sonicos }
+  aliases: ["SonicWall", "SonicOS"]
+  alias_safety: exact
+
+- id: cisco.asa
+  vendor: Cisco
+  category: Network Security / Firewalls
+  cpe: { vendor: cisco, product: adaptive_security_appliance_software }
+  aliases: ["Cisco ASA"]
+  alias_safety: phrase
+  advisory_feed: https://sec.cloudapps.cisco.com/security/center/psirtrss20/CiscoSecurityAdvisory.xml
+
+# ---------------- Remote Access / VPN ----------------
+- id: ivanti.connect_secure
+  vendor: Ivanti
+  category: Remote Access / VPN
+  cpe: { vendor: ivanti, product: connect_secure }
+  aliases: ["Ivanti Connect Secure", "Pulse Secure"]
+  alias_safety: phrase
+
+- id: citrix.netscaler
+  vendor: Citrix
+  category: Remote Access / VPN
+  cpe: { vendor: citrix, product: netscaler_application_delivery_controller }
+  aliases: ["NetScaler", "Citrix ADC", "CitrixBleed"]
+  alias_safety: exact
+
+# ---------------- Hypervisors ----------------
+- id: vmware.esxi
+  vendor: VMware
+  category: Hypervisors
+  cpe: { vendor: vmware, product: esxi }
+  aliases: ["ESXi", "vCenter"]
+  alias_safety: exact
+
+# ---------------- Operating Systems ----------------
+- id: microsoft.windows_server
+  vendor: Microsoft
+  category: Operating Systems
+  cpe: { vendor: microsoft, product: windows_server }
+  aliases: ["Windows Server", "Patch Tuesday"]
+  alias_safety: phrase
+
+- id: microsoft.exchange_server
+  vendor: Microsoft
+  category: Email Security
+  cpe: { vendor: microsoft, product: exchange_server }
+  aliases: ["Exchange Server", "Outlook Web Access"]
+  alias_safety: phrase
+
+# ---------------- RMM / PSA (MSP tooling) ----------------
+- id: connectwise.screenconnect
+  vendor: ConnectWise
+  category: RMM / PSA
+  cpe: { vendor: connectwise, product: screenconnect }
+  aliases: ["ScreenConnect", "ConnectWise"]
+  alias_safety: exact
+
+- id: ivanti.epm
+  vendor: Ivanti
+  category: RMM / PSA
+  cpe: { vendor: ivanti, product: endpoint_manager }
+  aliases: ["Ivanti EPM", "Ivanti Endpoint Manager"]
+  alias_safety: phrase

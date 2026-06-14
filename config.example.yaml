@@ -1,0 +1,59 @@
+# Heedwire config. Copy to config.yaml and edit. Secrets come from env, never here.
+
+# --- Sources: broad public feeds, filtered locally. ---
+sources:
+  kev:
+    type: kev
+  # Picking a vendor/product/category below auto-adds its taxonomy advisory_feed
+  # as an rss source. The starter taxonomy ships PSIRT feeds for Fortinet, Cisco,
+  # and Palo Alto, so the firewall picks below already pull those advisories.
+  # Add your own advisory/news RSS feeds here (give each a unique key):
+  # "rss:bleepingcomputer":
+  #   type: rss
+  #   url: https://www.bleepingcomputer.com/feed/
+
+# --- What you watch: pick from the taxonomy, no keyword guessing. ---
+watch:
+  categories: ["Network Security / Firewalls", "Remote Access / VPN", "RMM / PSA"]
+  vendors: [Microsoft, Fortinet, Ivanti]
+  products: [vmware.esxi]
+  custom: []        # ad-hoc entries so you're never blocked on the taxonomy
+
+# --- Gates: applied after a watchlist match (KEV always passes). ---
+gates:
+  min_severity: high          # unknown|low|medium|high|critical
+  only_known_exploited: false
+  # epss_min: 0.5
+
+# --- Outputs: secrets from env. ---
+outputs:
+  webhook:
+    type: webhook
+    url_env: HEEDWIRE_WEBHOOK_URL
+    format: slack             # slack | teams_workflow | teams | discord | text
+    # Teams: O365 connectors were retired in 2026. Create a Power Automate
+    # "Workflows" webhook on the channel ("Post to a channel when a webhook
+    # request is received"), put its URL in HEEDWIRE_WEBHOOK_URL, and use
+    # format: teams_workflow (Adaptive Card). `teams` (legacy MessageCard) is
+    # still accepted by Workflows but teams_workflow is preferred.
+  # stdout: { type: stdout }   # for --once / debugging
+
+# --- Engine ---
+lookback_hours: 25
+interval_minutes: 1440        # run mode: once a day
+store_path: data/heedwire.db
+taxonomy_path: data/taxonomy.yaml
+api_host: 127.0.0.1
+api_port: 8787
+
+# --- Heartbeat (dead-man's-switch): optional. After each run Heedwire pings the
+#     URL in this env var, and <url>/fail when a source errored (healthchecks.io /
+#     Uptime Kuma convention), so a silently-dead scheduler gets noticed. The URL
+#     is a secret — it lives in the env var, never here. ---
+# heartbeat_env: HEEDWIRE_HEARTBEAT_URL
+
+# --- AI summaries: OFF by default; grounded + source-linked when enabled. ---
+summarizer:
+  enabled: false
+  # model: ollama
+  # endpoint: http://localhost:11434

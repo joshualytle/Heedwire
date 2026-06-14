@@ -1,0 +1,12 @@
+[extend]
+useDefault = true
+
+[[rules]]
+id = "slack-incoming-webhook"
+description = "Slack incoming webhook URL"
+regex = '''https://hooks\.slack\.com/services/[A-Za-z0-9/]+'''
+
+[[rules]]
+id = "discord-webhook"
+description = "Discord webhook URL"
+regex = '''https://discord(app)?\.com/api/webhooks/[0-9]+/[A-Za-z0-9_-]+'''

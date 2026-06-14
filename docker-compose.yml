@@ -1,0 +1,14 @@
+services:
+  heedwire:
+    build: .
+    # image: ghcr.io/<your-account>/heedwire:latest   # once published
+    restart: unless-stopped
+    environment:
+      - HEEDWIRE_WEBHOOK_URL=${HEEDWIRE_WEBHOOK_URL}
+      - HEEDWIRE_HEARTBEAT_URL=${HEEDWIRE_HEARTBEAT_URL:-}
+    volumes:
+      - ./config.yaml:/app/config.yaml:ro
+      - ./data:/app/data
+    # To browse via the local API instead of the scheduler:
+    # command: ["serve", "--config", "/app/config.yaml"]
+    # ports: ["127.0.0.1:8787:8787"]
