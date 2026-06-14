@@ -57,6 +57,12 @@ Every user-facing change must update the `[Unreleased]` section in the same PR.
 - RSS source parsed feed timestamps as local time, shifting `published` times
   (and the window filter) on non-UTC hosts; they are now correctly read as UTC.
 
+### Security
+- Bumped the SHA-pinned CI actions to their current Node.js 24 releases so the
+  pipeline keeps working past GitHub's June 16 2026 removal of the Node 20 runner:
+  `actions/checkout` v6.0.3, `actions/setup-python` v6.2.0, and
+  `gitleaks/gitleaks-action` v3.0.0. Still pinned to commit SHAs, not tags.
+
 <!--
 Group entries under: Added / Changed / Deprecated / Removed / Fixed / Security.
 On release: move [Unreleased] into a new "## [x.y.z] - YYYY-MM-DD" section.
