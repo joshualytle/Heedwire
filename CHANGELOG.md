@@ -16,6 +16,12 @@ Every user-facing change must update the `[Unreleased]` section in the same PR.
   feed states nothing stay `unknown`. Fixes advisory feeds being silently dropped
   by the `min_severity` gate (e.g. high/critical PSIRT advisories now deliver
   under the shipped `min_severity: high`).
+- Heuristic severity estimate: when a feed states no severity, Heedwire infers a
+  **non-authoritative** band from the advisory's vulnerability-class wording
+  (`heedwire.severity.estimate_severity`) so a likely-serious advisory isn't
+  silently dropped. It is deterministic (no model), flagged `est.` in webhook
+  output and exposed as `severity_estimated` on the API, and never presented as
+  the vendor's own rating.
 - `.env.example` template for the secrets Heedwire reads from the environment
   (`HEEDWIRE_WEBHOOK_URL`, optional `HEEDWIRE_HEARTBEAT_URL`). Copy it to `.env`
   and fill in; `docker compose` loads it automatically. Keeps secret

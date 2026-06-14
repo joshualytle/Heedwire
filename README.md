@@ -105,9 +105,12 @@ outputs:
 `min_severity` is checked against the severity each source reports: CISA KEV is
 always critical (and KEV-listed items bypass the floor), and advisory/PSIRT feeds
 carry the **vendor-stated** severity Heedwire reads from the item (an explicit
-`Severity:`, a Cisco `Security Impact Rating`, or a CVSS base score). An advisory
-whose feed states no severity is `unknown` and won't clear a `high` floor — lower
-`min_severity` if you want those too.
+`Severity:`, a Cisco `Security Impact Rating`, or a CVSS base score). When a feed
+states no severity, Heedwire falls back to a **non-authoritative heuristic guess**
+from the advisory's vulnerability-class wording (e.g. "authentication bypass",
+"remote code execution") — shown with an **`est.`** label so you know it's an
+estimate, never the vendor's own rating. It's deterministic (no model involved),
+and conservative (a likely-serious advisory isn't silently dropped by the gate).
 
 Picking a vendor/category that has a PSIRT feed auto-adds that feed (the starter
 taxonomy ships Fortinet, Cisco, and Palo Alto). Custom entries are supported, so

@@ -39,6 +39,7 @@ class Item:
     url: str
     published: datetime | None = None
     severity: Severity = Severity.UNKNOWN
+    severity_estimated: bool = False   # True if heuristically guessed, not source-stated
     score: float | None = None
     cve_ids: list[str] = field(default_factory=list)
     vendors: list[str] = field(default_factory=list)   # lowercased, e.g. ["fortinet"]

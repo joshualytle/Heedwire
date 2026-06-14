@@ -49,6 +49,10 @@ scope creep to the human instead of building it.
   placeholder when disabled so the tool runs fully without any model.
 - Only the summarizer module imports a model client. Model is BYO (Ollama/LiteRT
   local, or OpenAI-compatible endpoint).
+- **Severity** is either vendor-stated (parsed from the source — grounded) or,
+  when a feed states none, a **deterministic heuristic estimate** clearly labelled
+  `est.` and treated as non-authoritative — never presented as the vendor's
+  rating. The AI summarizer still never fabricates severity/CVSS/impact.
 
 ## Taxonomy rules
 

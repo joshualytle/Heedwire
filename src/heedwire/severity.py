@@ -50,3 +50,62 @@ def parse_severity(text: str) -> Severity:
     if m:
         return cvss_to_severity(float(m.group(1)))
     return Severity.UNKNOWN
+
+
+# --- Heuristic estimate (NON-AUTHORITATIVE) ---------------------------------
+# When a feed states no severity, we *guess* one from vulnerability-class clues
+# in the text so a likely-serious advisory isn't silently dropped by the gate.
+# This is an explicit guess, labelled as estimated wherever it surfaces — never
+# presented as the vendor's rating. Substring phrases are matched on tag-stripped
+# lowercased text; short acronyms use word boundaries to avoid false hits
+# ("rce" vs "force", "dos" vs "dose").
+_CRIT_PHRASES = ("authentication bypass", "auth bypass", "actively exploited",
+                 "exploited in the wild", "in the wild", "wormable",
+                 "missing authentication")
+_HIGH_PHRASES = ("remote code execution", "arbitrary code", "privilege escalation",
+                 "command injection", "sql injection", "insecure deserialization",
+                 "deserialization of untrusted", "path traversal", "directory traversal",
+                 "use after free", "buffer overflow", "heap overflow", "stack overflow")
+_MED_PHRASES = ("cross-site scripting", "cross-site request forgery", "request forgery",
+                "information disclosure", "sensitive information", "denial of service",
+                "improper access control", "access control", "open redirect")
+_HIGH_ACRONYMS = re.compile(r"\b(rce)\b", re.I)
+_MED_ACRONYMS = re.compile(r"\b(xss|csrf|ssrf|dos)\b", re.I)
+# Generic markers that this is a vulnerability advisory at all (so we don't guess
+# a severity for unrelated news/chatter).
+_VULN_CONTEXT = ("vulnerab", "exploit", "cve-", "advisor", "security update", "patch")
+
+
+def estimate_severity(text: str) -> Severity:
+    """Heuristic, non-authoritative severity guess from vuln-class clues.
+
+    CRITICAL/HIGH/MEDIUM by the worst signal present; a conservative MEDIUM when
+    it's clearly an advisory but no class stands out; UNKNOWN when there's no
+    vulnerability context to guess from. Deterministic — never calls a model.
+    """
+    if not text:
+        return Severity.UNKNOWN
+    clean = _TAGS.sub(" ", text).lower()
+    if any(p in clean for p in _CRIT_PHRASES):
+        return Severity.CRITICAL
+    if any(p in clean for p in _HIGH_PHRASES) or _HIGH_ACRONYMS.search(clean):
+        return Severity.HIGH
+    if any(p in clean for p in _MED_PHRASES) or _MED_ACRONYMS.search(clean):
+        return Severity.MEDIUM
+    if any(c in clean for c in _VULN_CONTEXT):
+        return Severity.MEDIUM
+    return Severity.UNKNOWN
+
+
+def classify(text: str) -> tuple[Severity, bool]:
+    """Resolve a severity for free text. Returns (severity, estimated).
+
+    Prefer the vendor-stated severity (estimated=False). Only when none is stated
+    do we fall back to the heuristic guess (estimated=True), so callers can label
+    it honestly. A bare UNKNOWN is never marked estimated.
+    """
+    stated = parse_severity(text)
+    if stated is not Severity.UNKNOWN:
+        return stated, False
+    guess = estimate_severity(text)
+    return guess, guess is not Severity.UNKNOWN

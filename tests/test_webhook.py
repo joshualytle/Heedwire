@@ -94,6 +94,26 @@ def test_teams_workflow_caps_and_overflow(monkeypatch, fake_session):
     assert "…and 5 more" in card["body"][-1]["text"]
 
 
+def test_estimated_severity_labeled(monkeypatch, fake_session):
+    monkeypatch.setenv("HEEDWIRE_WEBHOOK_URL", "https://example/hook")
+    it = Item(source="rss:psirt-0", uid="X", title="PAN-OS issue", url="https://x",
+              severity=Severity.HIGH, severity_estimated=True)
+    WebhookOutput(format="slack").send([Finding(item=it, matched_rule="alias",
+                                                matched_on="pan-os")])
+    text = fake_session.calls[0]["json"]["text"]
+    assert "[HIGH est.]" in text          # guess is flagged, not shown as the vendor's rating
+
+
+def test_stated_severity_not_flagged_estimated(monkeypatch, fake_session):
+    monkeypatch.setenv("HEEDWIRE_WEBHOOK_URL", "https://example/hook")
+    it = Item(source="rss:psirt-0", uid="Y", title="thing", url="https://y",
+              severity=Severity.CRITICAL, severity_estimated=False)
+    WebhookOutput(format="slack").send([Finding(item=it, matched_rule="alias",
+                                                matched_on="x")])
+    text = fake_session.calls[0]["json"]["text"]
+    assert "[CRITICAL]" in text and "est." not in text
+
+
 def test_discord_and_teams_legacy_formats(monkeypatch, fake_session):
     monkeypatch.setenv("HEEDWIRE_WEBHOOK_URL", "https://example/hook")
     WebhookOutput(format="discord").send(_findings())

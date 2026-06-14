@@ -18,6 +18,10 @@ Specifically, and without limiting the above:
 - **AI-generated summaries can be inaccurate or incomplete.** They are a
   convenience layer over the linked source, never a replacement for reading it,
   and never an authoritative statement of severity or impact.
+- **Estimated severities are guesses.** When a feed states no severity, Heedwire
+  may show a heuristic estimate (flagged `est.`) inferred from the advisory's
+  wording. It is non-authoritative, can be wrong, and is never the vendor's own
+  rating — confirm against the linked advisory.
 - Heedwire **must not be relied upon as a sole or authoritative source** of
   security, vulnerability, or threat information. It is an aid, not a control.
   Always corroborate with official vendor advisories and your own processes.
