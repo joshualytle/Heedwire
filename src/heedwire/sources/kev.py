@@ -24,7 +24,12 @@ class KevSource(Source):
                          if added else None)
             if published and published < since:
                 continue
-            cve = v.get("cveID", "")
+            cve = v.get("cveID", "").strip()
+            # KEV vendorProject/product are free text and occasionally carry stray
+            # leading/trailing whitespace in the live catalog; normalize so exact
+            # structured matching isn't silently defeated.
+            vendor = (v.get("vendorProject") or "").strip().lower()
+            product = (v.get("product") or "").strip().lower()
             items.append(Item(
                 source=self.id,
                 uid=cve or make_uid("kev", v.get("vulnerabilityName", "")),
@@ -32,8 +37,8 @@ class KevSource(Source):
                 url=f"https://nvd.nist.gov/vuln/detail/{cve}",
                 published=published, severity=Severity.CRITICAL,
                 cve_ids=[cve] if cve else [],
-                vendors=[v["vendorProject"].lower()] if v.get("vendorProject") else [],
-                products=[v["product"].lower()] if v.get("product") else [],
+                vendors=[vendor] if vendor else [],
+                products=[product] if product else [],
                 known_exploited=True, summary=v.get("shortDescription", ""), raw=v,
             ))
         return items

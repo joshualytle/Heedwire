@@ -11,6 +11,11 @@ Every user-facing change must update the `[Unreleased]` section in the same PR.
 ### Added
 - Initial project scaffolding, repository documentation, and engineering ruleset.
 
+### Fixed
+- KEV source now strips stray whitespace from the free-text `vendorProject` and
+  `product` fields (present in the live CISA catalog), so exact structured
+  matching is not silently defeated.
+
 <!--
 Group entries under: Added / Changed / Deprecated / Removed / Fixed / Security.
 On release: move [Unreleased] into a new "## [x.y.z] - YYYY-MM-DD" section.
