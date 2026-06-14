@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xml:lang="en-US">
+  <id>tag:github.com,2008:/cisagov/kev-data/commits/develop</id>
+  <link type="text/html" rel="alternate" href="https://github.com/cisagov/kev-data/commits/develop"/>
+  <link type="application/atom+xml" rel="self" href="https://github.com/cisagov/kev-data/commits/develop.atom"/>
+  <title>Recent Commits to kev-data:develop</title>
+  <updated>2026-06-12T18:45:20Z</updated>
+  <entry>
+    <id>tag:github.com,2008:Grit::Commit/432051d5e341e6cd903d4175ee8e77e5e262b681</id>
+    <link type="text/html" rel="alternate" href="https://github.com/cisagov/kev-data/commit/432051d5e341e6cd903d4175ee8e77e5e262b681"/>
+    <title>
+        Add Updated KEV Files for 2026-06-12
+    </title>
+    <updated>2026-06-12T18:45:20Z</updated>
+    <media:thumbnail height="30" width="30" url="https://2.gravatar.com/avatar/2be1f93acdf9d56a329b5a075cf0a3a3?d=https%3A%2F%2Fgithub.githubassets.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png&amp;r=g&amp;s=30"/>
+    <author>
+      <name></name>
+      <email>actions@users.noreply.github.com</email>
+    </author>
+    <content type="html">
+      &lt;pre style=&#39;white-space:pre-wrap;width:81ex&#39;&gt;Add Updated KEV Files for 2026-06-12&lt;/pre&gt;
+    </content>
+  </entry>
+<entry>
+    <id>tag:github.com,2008:Grit::Commit/3b4fee8c5dc497b07b34f1ba834bd58a87b9b2c7</id>
+    <link type="text/html" rel="alternate" href="https://github.com/cisagov/kev-data/commit/3b4fee8c5dc497b07b34f1ba834bd58a87b9b2c7"/>
+    <title>
+        Add Updated KEV Files for 2026-06-11
+    </title>
+    <updated>2026-06-11T20:52:53Z</updated>
+    <media:thumbnail height="30" width="30" url="https://2.gravatar.com/avatar/2be1f93acdf9d56a329b5a075cf0a3a3?d=https%3A%2F%2Fgithub.githubassets.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png&amp;r=g&amp;s=30"/>
+    <author>
+      <name></name>
+      <email>actions@users.noreply.github.com</email>
+    </author>
+    <content type="html">
+      &lt;pre style=&#39;white-space:pre-wrap;width:81ex&#39;&gt;Add Updated KEV Files for 2026-06-11&lt;/pre&gt;
+    </content>
+  </entry>
+<entry>
+    <id>tag:github.com,2008:Grit::Commit/f896ad81b2a02dc2abcfbac3b9c0bd9b32e70371</id>
+    <link type="text/html" rel="alternate" href="https://github.com/cisagov/kev-data/commit/f896ad81b2a02dc2abcfbac3b9c0bd9b32e70371"/>
+    <title>
+        Add Updated KEV Files for 2026-06-11
+    </title>
+    <updated>2026-06-11T19:04:32Z</updated>
+    <media:thumbnail height="30" width="30" url="https://2.gravatar.com/avatar/2be1f93acdf9d56a329b5a075cf0a3a3?d=https%3A%2F%2Fgithub.githubassets.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png&amp;r=g&amp;s=30"/>
+    <author>
+      <name></name>
+      <email>actions@users.noreply.github.com</email>
+    </author>
+    <content type="html">
+      &lt;pre style=&#39;white-space:pre-wrap;width:81ex&#39;&gt;Add Updated KEV Files for 2026-06-11&lt;/pre&gt;
+    </content>
+  </entry>
+</feed>
