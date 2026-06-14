@@ -9,6 +9,10 @@ Every user-facing change must update the `[Unreleased]` section in the same PR.
 ## [Unreleased]
 
 ### Added
+- `.env.example` template for the secrets Heedwire reads from the environment
+  (`HEEDWIRE_WEBHOOK_URL`, optional `HEEDWIRE_HEARTBEAT_URL`). Copy it to `.env`
+  and fill in; `docker compose` loads it automatically. Keeps secret
+  provisioning out of `config.yaml` and the image for self-hosters.
 - Initial project scaffolding, repository documentation, and engineering ruleset.
 - Starter vendor PSIRT advisory RSS feeds wired into the taxonomy for Fortinet,
   Cisco, and Palo Alto; selecting those vendors (or the Firewalls category)

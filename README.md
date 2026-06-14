@@ -52,8 +52,8 @@ With Docker:
 git clone https://github.com/joshualytle/Heedwire
 cd Heedwire
 cp config.example.yaml config.yaml          # pick your vendors/categories
-export HEEDWIRE_WEBHOOK_URL=...              # Slack/Teams/Discord incoming webhook
-docker compose up -d
+cp .env.example .env                         # then edit .env: add your webhook URL
+docker compose up -d                         # compose loads .env automatically
 ```
 
 Without Docker (Python 3.12):
@@ -61,10 +61,14 @@ Without Docker (Python 3.12):
 ```bash
 pip install -e .
 cp config.example.yaml config.yaml
-export HEEDWIRE_WEBHOOK_URL=...
+export HEEDWIRE_WEBHOOK_URL=...             # Slack/Teams/Discord incoming webhook
 heedwire resolve -c config.yaml             # see what your picks resolve to
 heedwire once -c config.yaml                # one run now (omit to schedule)
 ```
+
+Secrets (the webhook URL, the optional heartbeat URL) live in the environment
+only — `.env.example` lists them; copy it to `.env` and fill in. They are never
+read from `config.yaml` or baked into the image.
 
 See [`docs/deployment.md`](docs/deployment.md) for secrets, the outbound network
 allowlist, the heartbeat, Teams setup, and persistence.
