@@ -46,6 +46,12 @@ taxonomy_path: data/taxonomy.yaml
 api_host: 127.0.0.1
 api_port: 8787
 
+# --- Heartbeat (dead-man's-switch): optional. After each run Heedwire pings the
+#     URL in this env var, and <url>/fail when a source errored (healthchecks.io /
+#     Uptime Kuma convention), so a silently-dead scheduler gets noticed. The URL
+#     is a secret — it lives in the env var, never here. ---
+# heartbeat_env: HEEDWIRE_HEARTBEAT_URL
+
 # --- AI summaries: OFF by default; grounded + source-linked when enabled. ---
 summarizer:
   enabled: false

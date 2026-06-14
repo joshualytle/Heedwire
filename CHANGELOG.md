@@ -16,8 +16,14 @@ Every user-facing change must update the `[Unreleased]` section in the same PR.
 - Teams delivery via Power Automate **Workflows** (`format: teams_workflow`):
   posts an Adaptive Card to the Workflows webhook that replaces the retired
   Office 365 connector. The legacy `teams` MessageCard format is retained.
+- Deployment and taxonomy guides (`docs/deployment.md`, `docs/taxonomy.md`)
+  covering the outbound network allowlist, the heartbeat, Teams setup,
+  persistence, and alias-safety levels; heartbeat documented in the example config.
 
 ### Changed
+- README now states the shipped v1 scope honestly (CISA KEV + advisory RSS →
+  webhook + local API) with a clear roadmap, instead of implying news/Reddit/AI
+  summaries already work.
 - RSS source now fetches through the shared HTTP session (explicit timeout +
   retry/backoff) instead of feedparser's un-timed fetch.
 
