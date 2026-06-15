@@ -53,6 +53,23 @@ def test_second_run_dedups(cfg):
     assert r2.new_items == 0
 
 
+def test_delivery_wiring_to_output(tmp_path, monkeypatch, capsys):
+    """run_once actually hands findings to the configured output (here stdout)."""
+    monkeypatch.delenv("HEEDWIRE_HEARTBEAT_URL", raising=False)
+    cfg = Config(
+        store_path=str(tmp_path / "deliver.db"),
+        sources={"rss:test": {"type": "rss", "url": FEED}},
+        outputs={"stdout": {"type": "stdout"}},
+        watch=Watch(products=["vmware.esxi"]),
+        gates=Gates(min_severity=Severity.HIGH),
+        taxonomy_path=TAXONOMY,
+        lookback_hours=24 * 36500,
+    )
+    run_once(cfg, deliver=True)
+    out = capsys.readouterr().out
+    assert "engine-esxi-1" in out                      # the finding reached the output
+
+
 def test_per_source_isolation(tmp_path, monkeypatch):
     """A dead source must never abort the run: its error is collected and the
     healthy source still ingests, matches, and delivers."""
