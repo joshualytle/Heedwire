@@ -51,3 +51,23 @@ def test_second_run_dedups(cfg):
     r2 = run_once(cfg, deliver=True)
     assert r2.findings == []                          # already notified -> nothing re-delivered
     assert r2.new_items == 0
+
+
+def test_per_source_isolation(tmp_path, monkeypatch):
+    """A dead source must never abort the run: its error is collected and the
+    healthy source still ingests, matches, and delivers."""
+    monkeypatch.delenv("HEEDWIRE_HEARTBEAT_URL", raising=False)
+    cfg = Config(
+        store_path=str(tmp_path / "iso.db"),
+        sources={"rss:good": {"type": "rss", "url": FEED},
+                 "rss:bad": {"type": "rss"}},          # missing url -> raises, isolated
+        outputs={},
+        watch=Watch(products=["vmware.esxi"]),
+        gates=Gates(min_severity=Severity.HIGH),
+        taxonomy_path=TAXONOMY,
+        lookback_hours=24 * 36500,
+    )
+    r = run_once(cfg, deliver=True)
+    assert any("rss:bad" in e for e in r.errors)       # the dead source is reported
+    assert r.fetched == 2                              # the healthy source still ran
+    assert len(r.findings) == 1                        # and still produced a finding
