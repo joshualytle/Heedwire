@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+  <!-- I2R 9899 -->
+  
+    
+    <title>Cisco Security Advisory</title>
+    
+  
+   
+   
+    
+    
+    
+    <link>http://sec.cloudapps.cisco.com/security/center/psirtrss20/CiscoSecurityAdvisory.xml</link>
+    
+    <description>
+    	
+    </description>
+    <language>en-us</language>
+    <copyright>
+         1992-2010 Cisco Systems, Inc. All rights reserved.
+    </copyright>
+    <category>Cisco Security Advisory</category> 
+    <generator>
+    	Cisco Systems, Inc.
+    </generator>
+    <atom:link href="http://sec.cloudapps.cisco.com/security/center/psirtrss20/CiscoSecurityAdvisory.xml" rel="self" type="application/rss+xml" ></atom:link>
+    <ttl>15</ttl>
+
+    
+    
+	  <item>
+	  <!-- I2R 9899 -->
+          <title>Cisco Catalyst SD-WAN Controller, Catalyst SD-WAN Manager, and Catalyst SD-WAN Validator Authenticated Privilege Escalation Vulnerability</title>
+          
+           
+            
+             
+			
+		            
+		 
+          <link>https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-sdwan-privesc-4uxFrdzx?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Catalyst%20SD-WAN%20Controller,%20Catalyst%20SD-WAN%20Manager,%20and%20Catalyst%20SD-WAN%20Validator%20Authenticated%20Privilege%20Escalation%20Vulnerability%26vs_k=1</link>
+          
+          <description>
+			
+&lt;p&gt;A vulnerability in the CLI of Cisco Catalyst SD-WAN Controller, formerly SD-WAN vSmart, Cisco Catalyst SD-WAN Manager, formerly SD-WAN vManage, and &lt;span class=&#034;s1&#034;&gt;Cisco Catalyst SD-WAN Validator&lt;/span&gt;, formerly&lt;span class=&#034;s1&#034;&gt; SD-WAN vBond,&lt;/span&gt; could allow an authenticated, local attacker to execute arbitrary commands as &lt;em&gt;root&lt;/em&gt; by supplying a crafted file to the affected system.&lt;/p&gt;
+&lt;p&gt;This vulnerability is due to insufficient validation of user-supplied input. An attacker could exploit this vulnerability by uploading a crafted file to the affected system. A successful exploit could allow the attacker to perform command injection attacks on an affected system and elevate their privileges as the &lt;em&gt;root&lt;/em&gt; user.&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;To exploit this vulnerability, the attacker must have &lt;em&gt;netadmin&lt;/em&gt; privileges on the affected system. This would require valid credentials or exploitation of &lt;a href=&#034;https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-sdwan-rpa2-v69WY2SW&#034; target=&#034;_blank&#034; rel=&#034;noopener&#034;&gt;CVE-2026-20182&lt;/a&gt; or &lt;a href=&#034;https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-sdwan-rpa-EHchtZk&#034; target=&#034;_blank&#034; rel=&#034;noopener&#034;&gt;CVE-2026-20127&lt;/a&gt;. Cisco is not aware of successful exploitation by other methods. Cisco has observed limited cases where the exploitation of this bug resulted in a configuration change pushed to edge devices.&lt;/p&gt;
+&lt;p&gt;Cisco recommends that customers upgrade to the fixed software that is documented in the &lt;a href=&#034;https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-sdwan-rpa2-v69WY2SW&#034; target=&#034;_blank&#034; rel=&#034;noopener&#034;&gt;Catalyst SD-WAN Security Advisory&lt;/a&gt; that was published on May 14, 2026, and verify the configuration of the edge devices.&lt;/p&gt;
+
+&lt;p&gt;Cisco has released software updates that address this vulnerability.&lt;/p&gt;
+&lt;p&gt;There are no workarounds that address this vulnerability.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Important: &lt;/strong&gt;To preserve possible indicators of compromise, &lt;span class=&#034;more&#034;&gt;customers should issue the &lt;a href=&#034;https://www.cisco.com/c/en/us/support/docs/routers/sd-wan/225842-remediate-catalyst-sd-wan-security.html&#034; target=&#034;_blank&#034; rel=&#034;noopener&#034;&gt;&lt;strong&gt;request admin-tech&lt;/strong&gt;&lt;/a&gt; command from each of the control components in the SD-WAN deployment before upgrading. After the &lt;em&gt;admin-tech&lt;/em&gt; file has been collected,&lt;/span&gt; software should be upgraded at the earliest opportunity.&lt;/p&gt;
+&lt;p&gt;Before upgrading an SD-WAN deployment to a fixed release, retain relevant logs. After upgrading, verify that the system has not been compromised by checking the logs for the indicators of compromise as documented in this advisory. If the logs show indicators of compromise and the system is confirmed to be compromised, applying the software update alone will not resolve the vulnerability. In such cases, follow the specific remediation steps that will be provided by the Cisco Technical Assistance Center (TAC) to help secure the system.&lt;/p&gt;
+&lt;p&gt;This advisory is available at the following link:&lt;br&gt;&lt;a href=&#034;https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-sdwan-privesc-4uxFrdzx&#034;&gt;https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-sdwan-privesc-4uxFrdzx&lt;/a&gt;&lt;/p&gt;
+			      
+		           &amp;lt;br/&amp;gt;Security Impact Rating:  High
+		    
+		    
+		        &amp;lt;br/&amp;gt;CVE: CVE-2026-20245
+		    
+         </description>
+          
+		  <pubDate>2026-06-12 20:36:49.0</pubDate>                   
+          <guid>https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-sdwan-privesc-4uxFrdzx</guid>
+      </item><item>
+	  <!-- I2R 9899 -->
+          <title>Cisco Webex Meetings Cross-Site Scripting Vulnerability</title>
+          
+           
+            
+             
+			
+		            
+		 
+          <link>https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-webex-xss-jw3NeQzS?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Webex%20Meetings%20Cross-Site%20Scripting%20Vulnerability%26vs_k=1</link>
+          
+          <description>
+			
+&lt;p&gt;A vulnerability in the web-based user interface of Cisco Webex Meetings could have allowed an unauthenticated, remote attacker to conduct a cross-site scripting (XSS) attack. Cisco has addressed this vulnerability in the Webex Meetings service, and no customer action is needed.&lt;/p&gt;
+&lt;p&gt;This vulnerability existed because of insufficient validation of user input. Prior to this vulnerability being addressed, an attacker could have exploited this vulnerability by persuading a user to follow a malicious link. A successful exploit could have allowed the attacker to execute arbitrary script code in the browser of the targeted user or access sensitive, browser-based information.&lt;/p&gt;
+
+&lt;p&gt;As mentioned, Cisco has addressed this vulnerability in the Webex Meetings service, and no customer action is necessary to update on-premises software or devices. There are no workarounds that address this vulnerability.&lt;/p&gt;
+&lt;p&gt;This advisory is available at the following link:&lt;br&gt;&lt;a href=&#034;https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-webex-xss-jw3NeQzS&#034;&gt;https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-webex-xss-jw3NeQzS&lt;/a&gt;&lt;/p&gt;
+
+			      
+		           &amp;lt;br/&amp;gt;Security Impact Rating:  Medium
+		    
+		    
+		        &amp;lt;br/&amp;gt;CVE: CVE-2026-20233
+		    
+         </description>
+          
+		  <pubDate>2026-06-03 16:00:00.0</pubDate>                   
+          <guid>https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-webex-xss-jw3NeQzS</guid>
+      </item><item>
+	  <!-- I2R 9899 -->
+          <title>Cisco Unified Communications Manager Server-Side Request Forgery Vulnerability</title>
+          
+           
+            
+             
+			
+		            
+		 
+          <link>https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-cucm-ssrf-cXPnHcW?vs_f=Cisco%20Security%20Advisory%26vs_cat=Security%20Intelligence%26vs_type=RSS%26vs_p=Cisco%20Unified%20Communications%20Manager%20Server-Side%20Request%20Forgery%20Vulnerability%26vs_k=1</link>
+          
+          <description>
+			
+&lt;p&gt;A vulnerability in Cisco Unified Communications Manager (Unified CM) and Cisco Unified Communications Manager Session Management Edition (Unified CM SME) could allow an unauthenticated, remote attacker to conduct server-side request forgery (SSRF) attacks through an affected device.&lt;/p&gt;
+&lt;p&gt;This vulnerability is due to improper input validation for specific HTTP requests. An attacker could exploit this vulnerability by sending a crafted HTTP request to an affected device. A successful exploit could allow the attacker to write files to the underlying operating system that could be used later to elevate to &lt;em&gt;root&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Cisco has assigned this security advisory a Security Impact Rating (SIR) of Critical rather than High as the score indicates. The reason is that exploitation of this vulnerability could result in an attacker elevating privileges to &lt;em&gt;root&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; To exploit this vulnerability, the WebDialer service must be enabled. WebDialer is disabled by default.&lt;/p&gt;
+
+&lt;p&gt;Cisco has released software updates that address this vulnerability. There are no workarounds that address this vulnerability.&lt;/p&gt;
+&lt;p&gt;This advisory is available at the following link:&lt;br&gt;&lt;a href=&#034;https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-cucm-ssrf-cXPnHcW&#034;&gt;https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-cucm-ssrf-cXPnHcW&lt;/a&gt;&lt;/p&gt;
+			      
+		           &amp;lt;br/&amp;gt;Security Impact Rating:  Critical
+		    
+		    
+		        &amp;lt;br/&amp;gt;CVE: CVE-2026-20230
+		    
+         </description>
+          
+		  <pubDate>2026-06-03 16:00:00.0</pubDate>                   
+          <guid>https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-cucm-ssrf-cXPnHcW</guid>
+      </item>
+</channel></rss>

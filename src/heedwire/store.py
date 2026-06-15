@@ -100,7 +100,8 @@ def _item_from_row(data: str) -> Item:
     return Item(
         source=d["source"], uid=d["uid"], title=d["title"], url=d["url"],
         published=datetime.fromisoformat(pub) if pub else None,
-        severity=Severity(d.get("severity", "unknown")), score=d.get("score"),
+        severity=Severity(d.get("severity", "unknown")),
+        severity_estimated=d.get("severity_estimated", False), score=d.get("score"),
         cve_ids=d.get("cve_ids", []), vendors=d.get("vendors", []),
         products=d.get("products", []), packages=d.get("packages", []),
         known_exploited=d.get("known_exploited", False), epss=d.get("epss"),

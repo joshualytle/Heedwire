@@ -26,3 +26,12 @@ where = ["src"]
 
 [tool.ruff]
 line-length = 100
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    # starlette's TestClient warns that its httpx backend is deprecated in favour
+    # of httpx2 — third-party test tooling, not our code. Silence just this one so
+    # genuine warnings from our code stay visible.
+    'ignore:Using `httpx` with `starlette.testclient` is deprecated.*',
+]
+

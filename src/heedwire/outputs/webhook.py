@@ -24,10 +24,18 @@ from __future__ import annotations
 import os
 
 from ..http import session
-from ..models import Finding
+from ..models import Finding, Item, Severity
 from .base import Output
 
 MAX_ITEMS = 30
+
+
+def _sev_tag(it: Item) -> str:
+    """`[HIGH] ` / `[HIGH est.] ` — the 'est.' flags a heuristic guess, not the
+    source's own rating. Empty when severity is unknown."""
+    if it.severity is Severity.UNKNOWN:
+        return ""
+    return f"[{it.severity.value.upper()}{' est.' if it.severity_estimated else ''}] "
 
 
 def _lines(findings: list[Finding]) -> list[str]:
@@ -36,7 +44,7 @@ def _lines(findings: list[Finding]) -> list[str]:
         it = f.item
         kev = " [KEV]" if it.known_exploited else ""
         cves = ", ".join(it.cve_ids[:3])
-        out.append(f"• {it.title}{kev} ({cves or it.source}) — {it.url}")
+        out.append(f"• {_sev_tag(it)}{it.title}{kev} ({cves or it.source}) — {it.url}")
     return out
 
 
@@ -52,7 +60,7 @@ def _adaptive_card(findings: list[Finding]) -> dict:
         tag = "🔴 KEV · " if it.known_exploited else ""
         meta = ", ".join(it.cve_ids[:3]) or it.source
         body.append({"type": "TextBlock", "wrap": True,
-                     "text": f"{tag}[{it.title}]({it.url}) — {meta}"})
+                     "text": f"{tag}{_sev_tag(it)}[{it.title}]({it.url}) — {meta}"})
     if len(findings) > MAX_ITEMS:
         body.append({"type": "TextBlock", "isSubtle": True, "wrap": True,
                      "text": f"…and {len(findings) - MAX_ITEMS} more"})

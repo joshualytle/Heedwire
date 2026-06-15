@@ -52,8 +52,8 @@ With Docker:
 git clone https://github.com/joshualytle/Heedwire
 cd Heedwire
 cp config.example.yaml config.yaml          # pick your vendors/categories
-export HEEDWIRE_WEBHOOK_URL=...              # Slack/Teams/Discord incoming webhook
-docker compose up -d
+cp .env.example .env                         # then edit .env: add your webhook URL
+docker compose up -d                         # compose loads .env automatically
 ```
 
 Without Docker (Python 3.12):
@@ -61,10 +61,14 @@ Without Docker (Python 3.12):
 ```bash
 pip install -e .
 cp config.example.yaml config.yaml
-export HEEDWIRE_WEBHOOK_URL=...
+export HEEDWIRE_WEBHOOK_URL=...             # Slack/Teams/Discord incoming webhook
 heedwire resolve -c config.yaml             # see what your picks resolve to
 heedwire once -c config.yaml                # one run now (omit to schedule)
 ```
+
+Secrets (the webhook URL, the optional heartbeat URL) live in the environment
+only — `.env.example` lists them; copy it to `.env` and fill in. They are never
+read from `config.yaml` or baked into the image.
 
 See [`docs/deployment.md`](docs/deployment.md) for secrets, the outbound network
 allowlist, the heartbeat, Teams setup, and persistence.
@@ -97,6 +101,16 @@ outputs:
     url_env: HEEDWIRE_WEBHOOK_URL
     format: slack            # slack | teams_workflow | teams | discord | text
 ```
+
+`min_severity` is checked against the severity each source reports: CISA KEV is
+always critical (and KEV-listed items bypass the floor), and advisory/PSIRT feeds
+carry the **vendor-stated** severity Heedwire reads from the item (an explicit
+`Severity:`, a Cisco `Security Impact Rating`, or a CVSS base score). When a feed
+states no severity, Heedwire falls back to a **non-authoritative heuristic guess**
+from the advisory's vulnerability-class wording (e.g. "authentication bypass",
+"remote code execution") — shown with an **`est.`** label so you know it's an
+estimate, never the vendor's own rating. It's deterministic (no model involved),
+and conservative (a likely-serious advisory isn't silently dropped by the gate).
 
 Picking a vendor/category that has a PSIRT feed auto-adds that feed (the starter
 taxonomy ships Fortinet, Cisco, and Palo Alto). Custom entries are supported, so

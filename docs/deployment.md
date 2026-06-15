@@ -14,8 +14,17 @@ Heedwire never reads secrets from `config.yaml`. They come from the environment:
 | `HEEDWIRE_WEBHOOK_URL` | Incoming-webhook URL for your chat platform (Slack/Teams/Discord). |
 | `HEEDWIRE_HEARTBEAT_URL` | Optional dead-man's-switch ping URL (see below). |
 
-With `docker compose`, put them in a local `.env` (gitignored) or your secret
-store — never in the image or `config.yaml`.
+Copy the shipped template and fill in your values:
+
+```bash
+cp .env.example .env   # then edit .env
+```
+
+`docker compose` loads `.env` from the project directory automatically. `.env` is
+gitignored — keep your real secrets there or in your secret store, never in the
+image or `config.yaml`. An unset webhook URL doesn't crash the run: ingest and
+matching still happen, but the delivery step errors (isolated per-output) and
+nothing is posted.
 
 ## Outbound network (egress allowlist)
 

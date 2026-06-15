@@ -12,6 +12,7 @@ import feedparser
 
 from ..http import DEFAULT_TIMEOUT, session
 from ..models import Item, make_uid
+from ..severity import classify
 from .base import Source
 
 
@@ -43,10 +44,18 @@ class RssSource(Source):
             if published and published < since:
                 continue
             link = e.get("link", "")
+            title = e.get("title", "(untitled)")
+            summary = e.get("summary", "")
+            # Read the vendor-stated severity (Severity:/SIR/CVSS) when present so
+            # PSIRT advisories gate correctly; otherwise a labelled heuristic guess
+            # (never the feed's own rating) so a likely-serious advisory isn't
+            # silently dropped by the gate.
+            severity, estimated = classify(f"{title} {summary}")
             items.append(Item(
                 source=inst,
-                uid=e.get("id") or e.get("guid") or make_uid(inst, link, e.get("title", "")),
-                title=e.get("title", "(untitled)"), url=link,
-                published=published, summary=e.get("summary", ""),
+                uid=e.get("id") or e.get("guid") or make_uid(inst, link, title),
+                title=title, url=link,
+                published=published, summary=summary,
+                severity=severity, severity_estimated=estimated,
             ))
         return items
