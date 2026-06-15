@@ -18,30 +18,38 @@ real `config.yaml`, or the watchlist) into the summary, a file, or a commit.
    - Re-read the conversation for every item raised: decisions, fixes, deferrals,
      blockers, and anything the maintainer asked for.
 
-2. **Summarize what was done.** Group logically (not commit-by-commit). For each
+2. **Review commit & PR messages for consistency.** Read this session's commit
+   subjects/bodies and the PR title/body against the *Commit & PR message style*
+   in `CLAUDE.md`: same `type(scope):` notation, imperative voice, plain factual
+   tone, and structure that doesn't swing heavily commit to commit. Flag any that
+   drift (marketing/AI-narration, restating the diff, oversized bodies). Fix
+   forward where you can — PR title/body and the eventual squash-merge message
+   (the permanent record) — without rewriting already-pushed history.
+
+3. **Summarize what was done.** Group logically (not commit-by-commit). For each
    item note *how it was verified* (test/live/localhost/build) and any honesty
    caveat (e.g. "verified against a mirror because egress blocked the canonical
    host"). Keep it skimmable.
 
-3. **List what's planned next**, split and labeled:
+4. **List what's planned next**, split and labeled:
    - **Agent todos**, each tagged with its state: *unblocked* / *blocked: egress* /
      *blocked: secret* / *later*. Name the exact blocker.
    - **Maintainer todos** — anything only the human can do (recreate the session,
      provide a test webhook secret, app registrations, review/merge, decisions).
    - **Open decisions** still pending (e.g. `HANDOFF.md` §9).
 
-4. **Audit — nothing silently dropped.** Cross-check the conversation: every item
+5. **Audit — nothing silently dropped.** Cross-check the conversation: every item
    raised this session must appear under *Done* or under a *todo*. State the audit
    result explicitly ("all N items accounted for: X done, Y carried forward").
    If something was deferred, say why. Do not mark anything done that wasn't
    verified.
 
-5. **Produce a copy-pasteable handoff block** for the next session as a single
+6. **Produce a copy-pasteable handoff block** for the next session as a single
    fenced code block the maintainer can paste as the opening prompt. Include:
    branch name, PR number/URL, one-line current state, the **first actions** the
    next session should take (in order), and **what's needed from the maintainer**
    to unblock. No secrets — refer to env var *names* only.
 
-6. **Output to chat only.** Do not write the handoff to a file or commit it —
+7. **Output to chat only.** Do not write the handoff to a file or commit it —
    it lives in the conversation for the maintainer to copy. Never echo secrets.
 </content>

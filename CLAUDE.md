@@ -77,11 +77,24 @@ scope creep to the human instead of building it.
 
 ## Commits / branching / versioning
 
-- **Conventional Commits**; one logical change per commit; body explains *why*.
+- **Conventional Commits**; one logical change per commit.
 - **GitHub Flow**: protected `main`, short-lived `feat/`/`fix/`/`docs/` branches,
   PRs, squash-merge.
 - **SemVer** + **Keep a Changelog**: update `CHANGELOG.md` `[Unreleased]` in the
   same PR as any user-facing change. Tag releases; cut GitHub Releases.
+
+### Commit & PR message style (public history — keep it consistent)
+
+- **Subject**: `type(scope): summary` — imperative, lower-case, no trailing
+  period, ≤ 72 chars. Say *what* changed.
+- **Body** (only when it adds context): explain *why* and the user-visible
+  effect — not a play-by-play of *how*, and don't restate the diff. Wrap ~72; a
+  few tight lines or bullets. Size the body to the change: a one-line fix needs none.
+- **Plain and factual.** No marketing, hype, hedging, or tool/AI self-narration.
+  Use the same vocabulary, structure, and voice across commits so the log reads
+  as one careful author — not heavily varying tone commit to commit.
+- PR titles/bodies follow the same rules. The **squash-merge message** is the
+  permanent public record: make it clean and self-contained.
 
 ## Documentation standards
 
